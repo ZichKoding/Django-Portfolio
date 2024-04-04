@@ -1,1 +1,1 @@
-For Django tutorial, I left off on part 2. https://docs.djangoproject.com/en/5.0/intro/tutorial03/#removing-hardcoded-urls-in-templates
+Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial03/#namespacing-url-names
