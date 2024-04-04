@@ -1,1 +1,1 @@
-For Django tutorial, I left off on part 2. https://docs.djangoproject.com/en/5.0/intro/tutorial02/#introducing-the-django-admin
+For Django tutorial, I left off on part 2. https://docs.djangoproject.com/en/5.0/intro/tutorial03/#removing-hardcoded-urls-in-templates
