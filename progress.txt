@@ -1,1 +1,1 @@
-Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial04/#use-generic-views-less-code-is-better
+Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial05/#writing-your-first-django-app-part-5
