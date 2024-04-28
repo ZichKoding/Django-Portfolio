@@ -1,1 +1,1 @@
-Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial05/#testing-the-detailview
+Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial06/#writing-your-first-django-app-part-6
