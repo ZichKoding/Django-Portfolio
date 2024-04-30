@@ -1,2 +1,2 @@
-Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial08/#installing-django-debug-toolbar
+Left off at https://docs.djangoproject.com/en/5.0/intro/reusable-apps/#advanced-tutorial-how-to-write-reusable-apps
 
