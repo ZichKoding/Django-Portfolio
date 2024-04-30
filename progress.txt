@@ -1,1 +1,2 @@
-Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial07/#customize-the-admin-look-and-feel
+Left off at https://docs.djangoproject.com/en/5.0/intro/tutorial08/#installing-django-debug-toolbar
+
