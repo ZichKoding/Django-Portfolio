@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 from .models import MissionStatement, AppsDescriptions, Summary
-
+from .views import get_random_mission_statement, get_active_summary, get_random_active_apps_descriptions
 
 # Mission Statement model tests
 class MissionStatementModelTests(TestCase):
@@ -95,3 +95,67 @@ class SummmaryTests(TestCase):
         time = timezone.now() + datetime.timedelta(days=30)
         future_summary = Summary(pub_date=time)
         self.assertIs(future_summary.was_published_recently(), False)
+
+
+# Mission Statement view tests
+class MissionStatementViewTests(TestCase):
+    def test_get_mission_statement_fail(self):
+        """
+        get_mission_statement() returns the default mission statement when no mission statements exist.
+        """
+        mission_statement = get_random_mission_statement()
+        self.assertEqual(mission_statement, "Software Engineer | Your Vision. My Expertise. Together, we build success.")
+
+    def test_get_mission_statement(self):
+        """
+        get_mission_statement() returns the default mission statement when no mission statements exist.
+        """
+        MissionStatement.objects.create(mission_statement="Test mission statement", pub_date=timezone.now(), active=True)
+        mission_statement = get_random_mission_statement()
+        # Check if the mission statement is active
+        self.assertTrue(mission_statement.active)
+        # Check if the mission statement is correct
+        self.assertEqual(mission_statement.mission_statement, "Test mission statement")
+
+
+# Summary view tests
+class SummaryViewTests(TestCase):
+    def test_get_summary_fail(self):
+        """
+        get_summary() returns the default summary when no summaries exist.
+        """
+        summary = get_active_summary()
+        self.assertEqual(summary, "Software Engineer with a passion for crafting innovative solutions across web development, data engineering, and emerging technologies. I thrive in building user-centric applications using Django and other modern frameworks. My expertise spans full-stack development, data pipelines, and cloud platforms (AWS). Currently exploring the exciting world of AI, robotics, and Single Board Computers (Raspberry Pi & Arduino).")
+
+    def test_get_summary(self):
+        """
+        get_summary() returns the default summary when no summaries exist.
+        """
+        Summary.objects.create(summary="Test summary", pub_date=timezone.now(), active=True)
+        summary = get_active_summary()
+        # Check if the summary is active
+        self.assertTrue(summary.active)
+        # Check if the summary is correct
+        self.assertEqual(summary.summary, "Test summary")
+
+
+# Apps | Descriptions view tests
+class AppsDescriptionsViewTests(TestCase):
+    def test_get_apps_descriptions_fail(self):
+        """
+        get_apps_descriptions() returns the default apps descriptions when no apps descriptions exist.
+        """
+        apps_descriptions = get_random_active_apps_descriptions()
+        self.assertEqual(apps_descriptions, "Featured apps coming soon!")
+
+    def test_get_apps_descriptions(self):
+        """
+        get_apps_descriptions() returns the default apps descriptions when no apps descriptions exist.
+        """
+        AppsDescriptions.objects.create(app_name="Test app", app_description="Test app description", app_category="Test app category", pub_date=timezone.now(), active=True)
+        apps_descriptions = get_random_active_apps_descriptions()
+        # Check if there is at least 3 apps descriptions
+        self.assertTrue(len(apps_descriptions) <= 3)
+        # Check if all apps descriptions are active
+        for apps_description in apps_descriptions:
+            self.assertTrue(apps_description.active)
