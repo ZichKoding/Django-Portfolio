@@ -9,6 +9,7 @@ from django.contrib import admin
 class MissionStatement(models.Model):
     mission_statement = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.mission_statement
@@ -30,6 +31,7 @@ class AppsDescriptions(models.Model):
     app_description = models.CharField(max_length=200)
     app_category = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.app_name
@@ -48,6 +50,7 @@ class AppsDescriptions(models.Model):
 class Summary(models.Model):
     summary = models.CharField(max_length=1000)
     pub_date = models.DateTimeField("date published")
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.summary
