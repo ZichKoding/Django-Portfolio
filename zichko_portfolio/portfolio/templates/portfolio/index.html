@@ -18,6 +18,32 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
+        <header>ZichKoding</header>
+
+        <main>
+            <section>
+                <h3>
+                    {{ mission_statement }}
+                </h3>
+            </section>
+            <section>
+                <p>{{ summary }}</p>
+            </section>
+            <section>
+                <h1>Featured Projects</h1>
+                <ul>
+                    {% for apps in app_description %}
+                        <li>
+                            <h2>{{ apps.name }}</h2>
+                            <img src="{{ apps.app_image.url }}" alt="{{ apps.app_name }}">
+                            <p>{{ apps.app_description }}</p>
+                            <a href="{{ apps.url }}">View Project</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
         <script src="" async defer></script>
     </body>
 </html>
