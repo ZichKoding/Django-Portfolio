@@ -24,9 +24,13 @@
                 <a href="/">ZichKoding</a>
             </h1>
             <button class="menu-icon" onclick="toggleMenu()">
-                &#9776;
+                <span id="menuIcon">&#9776;</span>
             </button>
             <ul class="nav-list" id="navList">
+                <li>
+                    <span class="close-icon" onclick="toggleMenu()">
+                        <span id="closeIcon">&times;</span>
+                </li>
                 <li><a href="/apps">Apps</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/contact">Contact</a></li>

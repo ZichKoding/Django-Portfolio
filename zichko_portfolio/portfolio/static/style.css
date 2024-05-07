@@ -46,13 +46,25 @@ header {
     cursor: pointer;
 }
 
+.close-icon {
+    display: none;
+    font-size: 2em;
+    cursor: pointer;
+}
+
 @media (max-width: 700px) {
     .menu-icon {
         display: block;
     }
 
+    .close-icon {
+        display: block;
+    }
+
     .nav-list {
         position: absolute;
+        display: flex;
+        flex-direction: column;
         right: 0;
         top: 0;
         height: 100%;
