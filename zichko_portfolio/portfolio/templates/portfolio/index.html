@@ -12,15 +12,27 @@
         <title>ZichKoding</title>
         <meta name="description" content="ZichKoding (owned by Chris Zichko) portfolio.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="{% static '/style.css' %}">
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <header>ZichKoding</header>
-
+        <header>
+            <h1 class="portfolio-title">
+                <a href="/">ZichKoding</a>
+            </h1>
+            <button class="menu-icon" onclick="toggleMenu()">
+                &#9776;
+            </button>
+            <ul class="nav-list" id="navList">
+                <li><a href="/apps">Apps</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </header>
+        
         <main>
             <section>
                 <h3>
@@ -43,7 +55,6 @@
                     {% endfor %}
                 </ul>
             </section>
-
-        <script src="" async defer></script>
+        <script src="{% static 'index.js' %}" async defer></script>
     </body>
 </html>
