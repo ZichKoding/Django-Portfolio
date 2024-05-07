@@ -1,3 +1,4 @@
+/* HEADER START */
 header {
     background-color: #333;
     color: white;
@@ -55,7 +56,27 @@ header {
     cursor: pointer;
 }
 
+/* HEADER END */
+
+/* MISSION STATEMENT START */
+.mission-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.mission-statement {
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+}
+
+/* MISSION STATEMENT END */
+
 @media (max-width: 700px) {
+    /* HEADER START */
     .menu-icon {
         display: block;
     }
@@ -88,4 +109,6 @@ header {
     .nav-list.show {
         transform: translateX(0);
     }
+
+    /* HEADER END */
 }
