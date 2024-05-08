@@ -20,6 +20,7 @@ header {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .portfolio-title:hover {
@@ -107,8 +108,7 @@ header {
 }
 
 .app-image {
-    width: 50%;
-    height: 50%;
+    width: 35%;
     border-radius: 10px;
     margin-right: 20px;
     box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
@@ -141,7 +141,6 @@ header {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-left: 20px;
     }
 
     .app-details {
@@ -243,7 +242,7 @@ header {
     /* APPS & SUMMARY END */
 }
 
-@media (max-width: 340px) {
+@media (max-width: 380px) {
     /* APPS & SUMMARY START */
     .apps-container {
         top: 90%;
