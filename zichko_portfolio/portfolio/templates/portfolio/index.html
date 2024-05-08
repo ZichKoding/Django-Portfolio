@@ -46,22 +46,23 @@
                 </h3>
             </section>
             <section class="apps-summary-container">
-                <section>
-                    <p>{{ summary }}</p>
-                </section>
-                <section>
+                <div class="apps-container">
                     <h1>Featured Projects</h1>
                     <ul>
                         {% for apps in app_description %}
-                            <li>
+                            <li class="app-details">
                                 <h2>{{ apps.name }}</h2>
-                                <img src="{{ apps.app_image.url }}" alt="{{ apps.app_name }}" width="250px">
+                                <img src="{{ apps.app_image.url }}" alt="{{ apps.app_name }}" class="app-image" width="250px">
                                 <p>{{ apps.app_description }}</p>
                                 <a href="{{ apps.url }}">View Project</a>
                             </li>
                         {% endfor %}
                     </ul>
-                </section>
+                </div>
+
+                <div class="summary-container">
+                    <p>{{ summary }}</p>
+                </div>
             </section>
         <script src="{% static 'index.js' %}" async defer></script>
     </body>
