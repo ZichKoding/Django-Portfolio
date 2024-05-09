@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ZichKoding</title>
+        <meta name="description" content="ZichKoding (owned by Chris Zichko) portfolio.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static '/style.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+            <h1 class="portfolio-title">
+                <a href="/" class="portfolio-link">ZichKoding</a>
+            </h1>
+            <section>
+                <button class="menu-icon" onclick="toggleMenu()">
+                    <span id="menuIcon">&#9776;</span>
+                </button>
+                <ul class="nav-list" id="navList">
+                    <li>
+                        <span class="close-icon" onclick="toggleMenu()">
+                            <span id="closeIcon">&times;</span>
+                    </li>
+                    <li><a href="/apps">Apps</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </section>
+        </header>
+        
+        <main>
+            <section class="mission-container">
+                <h3 class="mission-statement">
+                    {{ mission_statement }}
+                </h3>
+            </section>
+            <section class="apps-summary-container">
+                <div class="apps-container">
+                    <h1>Featured Projects</h1>
+                    <ul>
+                        {% for apps in app_description %}
+                            <li class="app-details">
+                                <h2>{{ apps.name }}</h2>
+                                <img src="{{ apps.app_image.url }}" alt="{{ apps.app_name }}" class="app-image" width="250px">
+                                <p>{{ apps.app_description }}</p>
+                                <a href="{{ apps.url }}">View Project</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="summary-container">
+                    <p>{{ summary }}</p>
+                </div>
+            </section>
+        </main>
+        <script src="{% static 'index.js' %}" async defer></script>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<header>
+    <h1 class="portfolio-title">
+        <a href="/" class="portfolio-link">ZichKoding</a>
+    </h1>
+    <section>
+        <button class="menu-icon" onclick="toggleMenu()">
+            <span id="menuIcon">&#9776;</span>
+        </button>
+        <ul class="nav-list" id="navList">
+            <li>
+                <span class="close-icon" onclick="toggleMenu()">
+                    <span id="closeIcon">&times;</span>
+            </li>
+            <li><a href="/apps">Apps</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </section>
+</header>
