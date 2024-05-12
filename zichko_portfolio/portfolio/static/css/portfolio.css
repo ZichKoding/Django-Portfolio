@@ -19,7 +19,7 @@
 .apps-summary-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: top;
     flex-direction: row;
 }
 
@@ -59,8 +59,6 @@
 }
 
 .summary-container {
-    position:relative;
-    top: 0;
     width: 50%;
     font-size: 1.25rem;
     padding: 20px;
@@ -85,6 +83,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-top: 3rem;
     }
 
     .app-details {
@@ -139,6 +138,7 @@
     /* APPS & SUMMARY START */
     .apps-container {
         top: 75%;
+        margin-top: 4.5rem;
     }
 
     .summary-container {
