@@ -32,6 +32,9 @@ class AppsDescriptions(models.Model):
     app_category = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
     active = models.BooleanField(default=False)
+    # For the Apps app to use:
+    # Need to add URL field for each app
+    # Need to add GH/Project URL field for each app
 
     def __str__(self):
         return self.app_name
