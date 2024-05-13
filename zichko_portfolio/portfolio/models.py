@@ -30,11 +30,10 @@ class AppsDescriptions(models.Model):
     app_name = models.CharField(max_length=200)
     app_description = models.CharField(max_length=200)
     app_category = models.CharField(max_length=200)
+    app_url = models.URLField(max_length=200, default="https://zichkoding.com")
+    app_gh_url = models.URLField(max_length=200, default="https://https://github.com/ZichKoding")
     pub_date = models.DateTimeField("date published")
     active = models.BooleanField(default=False)
-    # For the Apps app to use:
-    # Need to add URL field for each app
-    # Need to add GH/Project URL field for each app
 
     def __str__(self):
         return self.app_name
