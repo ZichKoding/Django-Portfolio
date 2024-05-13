@@ -4,16 +4,10 @@ from portfolio.models import AppsDescriptions
 
 
 class SearchBarView():
-    def search_bar():
-        pass
-
     def search_by_name(request):
         pass
 
     def search_by_category(request):
-        pass
-
-    def search_by_description(request):
         pass
 
 
