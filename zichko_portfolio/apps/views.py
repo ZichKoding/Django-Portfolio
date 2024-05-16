@@ -2,8 +2,39 @@ from django.shortcuts import render
 
 from portfolio.models import AppsDescriptions
 
-def get_apps_descriptions(category=None, page_number=1):
-    pass
+
+class SearchBarView():
+    def search_by_name(request):
+        pass
+
+    def search_by_category(request):
+        pass
+
+
+class FitlerBoxView():
+    def filter_box():
+        pass
+
+    def filter_by_category(request):
+        pass
+
+    def filter_by_publish_date(request):
+        pass
+
+    def filter_by_publish_date_range(request):
+        pass
+
+
+class AppsView():
+    def get_apps():
+        pass
+
+    def get_seven_most_recent_active_apps():
+        pass
+
+    def get_pagination_of_apps():
+        pass
+
 
 def index(request):
     return render(request, "apps/index.html")
