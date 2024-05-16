@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('__debug__/', include("debug_toolbar.urls")),
     path('', include('portfolio.urls')),
+    path('apps/', include('apps.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
