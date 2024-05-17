@@ -227,6 +227,7 @@ class AppsViewTests(TestCase):
 
     # get_default_apps() tests ends
 
+
     # search_by_character() tests start
     def test_search_by_character_success(self):
         '''
@@ -334,8 +335,8 @@ class AppsViewTests(TestCase):
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
 
-
     # search_by_character() tests end
+
 
     # filter_by_category() tests start
     def test_filter_by_category_success(self):
