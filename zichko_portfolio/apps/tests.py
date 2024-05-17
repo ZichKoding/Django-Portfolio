@@ -2,7 +2,6 @@ import datetime
 
 from django.test import TestCase
 from django.utils import timezone
-from django.urls import reverse
 
 from portfolio.models import AppsDescriptions
 from .views import AppsView
@@ -230,7 +229,111 @@ class AppsViewTests(TestCase):
 
     # search_by_character() tests start
     def test_search_by_character_success(self):
-        pass
+        '''
+        Testing the search_by_character() method to make 
+        sure that it will return a list of apps that contain 
+        the character in the app name.  
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.search_by_character("app ")
+        self.assertEqual(len(response["apps_description"]), 7)
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "More Apps 8")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 2)
+
+    def test_search_by_character_success_less_than_seven_apps(self):
+        '''
+        Testing the search_by_character() method to make 
+        sure that it will return a list of apps that contain 
+        the character in the app name.  
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        apps_view = AppsView()
+        response = apps_view.search_by_character("test app ")
+        self.assertEqual(len(response["apps_description"]), 3)
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "Test App 4")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 1)
+
+    def test_search_by_character_success_different_page(self):
+        '''
+        Testing the search_by_character() method to make 
+        sure that it will return a list of apps that contain 
+        the character in the app name.  
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.search_by_character("app ", page_number=2)
+        self.assertEqual(len(response["apps_description"]), 3)
+        self.assertEqual(response["apps_description"][0]["app_name"], "More Apps 9")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "More Apps 10")
+        self.assertEqual(response["current_page"], 2)
+        self.assertEqual(response["total_pages"], 2)
+
+    def test_search_by_character_no_apps(self):
+        '''
+        Testing the search_by_character() method to make 
+        sure that it will return the default message when
+        there are no apps in the database with those characters
+        or upon a database error.  
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.search_by_character("something")
+        self.assertEqual(len(response["apps_description"]), 1)
+        self.assertEqual(response["apps_description"][0]["app_name"], "No apps found")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 1)
+
+    def test_search_by_character_database_error(self):
+        '''
+        Testing the search_by_character() method to make 
+        sure that it will return the default message when
+        there is a database error. 
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        apps_view = AppsView()
+        response = apps_view.search_by_character("apps")
+        self.assertEqual(len(response["apps_description"]), 1)
+        self.assertEqual(response["apps_description"][0]["app_name"], "No apps found")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 1)
+
 
     # search_by_character() tests end
 

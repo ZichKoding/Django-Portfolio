@@ -7,6 +7,18 @@ from portfolio.models import AppsDescriptions
 
 
 class AppsView():
+    def __init__(self):
+        self.default_response = [{
+            "app_image": "images/default_image.png",
+            "app_name": "No apps found",
+            "app_description": "No apps found at this time. Please check back later.",
+            "app_category": "No category found",
+            "app_url": "https://zichkoding.com",
+            "app_gh_url": "https://github.com/ZichKoding",
+            "pub_date": timezone.now(),
+            "active": True
+        }]
+
     def get_default_apps(self, page_number=1):
         '''
         This method will return, at most, the seven 
@@ -35,16 +47,7 @@ class AppsView():
             if apps.count() == 0:
                 raise AppsDescriptions.DoesNotExist
         except AppsDescriptions.DoesNotExist:
-            app_description = [{
-                "app_image": "images/default_image.png",
-                "app_name": "No apps found",
-                "app_description": "No apps found at this time. Please check back later.",
-                "app_category": "No category found",
-                "app_url": "https://zichkoding.com",
-                "app_gh_url": "https://github.com/ZichKoding",
-                "pub_date": timezone.now(),
-                "active": True
-            }]
+            app_description = self.default_response
             return {
                 "apps_description": app_description,
                 "current_page": 1,
