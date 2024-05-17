@@ -9,12 +9,15 @@ from portfolio.models import AppsDescriptions
 class AppsView():
     def get_default_apps(self, page_number=1):
         '''
-        This function needs to get the seven most recent apps. 
-        It, also, needs to return the pagination information with at 
-        7 apps per page. For example, object is returned with three keys:
-        apps_description - all of the app information of the current page
-        current_page - this is a numeric value, and by default the value is one. 
-        total_pages - the length of pages that holds at least 7 apps per page. 
+        This method will return, at most, the seven 
+        most recent apps from the database. Also, it will
+        return the pagination information.
+        :param page_number: the current page number
+        :return: a dictionary with three keys: {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
         '''
         # Get the range of apps to display
         if page_number > 1:
