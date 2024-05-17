@@ -8,7 +8,6 @@ from portfolio.models import AppsDescriptions
 from .views import AppsView
 
 # Need to make an dictionary of data for various test cases. 
-# get_default_apps dataset
 less_than_seven_apps = [
     {
         "app_image": "images/less_than_seven_apps.png",
@@ -117,6 +116,19 @@ more_apps = [
 
 # Need to create a function that will apply the data to the 
 # testing database. 
+def create_apps(apps):
+    for app in apps:
+        AppsDescriptions.objects.create(
+            app_image=app["app_image"],
+            app_name=app["app_name"],
+            app_description=app["app_description"],
+            app_category=app["app_category"],
+            app_url=app["app_url"],
+            app_gh_url=app["app_gh_url"],
+            pub_date=app["pub_date"],
+            active=app["active"]
+        )
+
 
 # AppsView tests
 class AppsViewTests(TestCase):
