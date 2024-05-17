@@ -133,7 +133,25 @@ def create_apps(apps):
 # AppsView tests
 class AppsViewTests(TestCase):
     def test_get_default_apps_success(self):
-        pass
+        '''
+        Testing the get_default_apps() method to make 
+        sure that it will return the 7 most recent active apps 
+        along with the pagination information. 
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.get_default_apps()
+        self.assertEqual(len(response["apps_description"]), 7)
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 2)
+
 
     def test_search_by_character_success(self):
         pass

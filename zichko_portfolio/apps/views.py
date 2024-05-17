@@ -13,7 +13,11 @@ class AppsView():
         current_page - this is a numeric value, and by default the value is one. 
         total_pages - the length of pages that holds at least 7 apps per page. 
         '''
-        pass
+        return {
+            "apps_description": [],  # Replace with actual apps descriptions
+            "current_page": 1,  # Replace with actual current page
+            "total_pages": 1,  # Replace with actual total pages
+        }
 
     def search_by_character(self, characters, page_number=1):
         '''
@@ -25,7 +29,11 @@ class AppsView():
         current_page - this is a numeric value, and by default the value is one. 
         total_pages - the length of pages that holds at least 7 apps per page. 
         '''
-        pass
+        return {
+            "apps_description": [],  # Replace with actual apps descriptions
+            "current_page": 1,  # Replace with actual current page
+            "total_pages": 1,  # Replace with actual total pages
+        }
 
     def filter_by_category(self, category, page_number=1):
         '''
@@ -37,7 +45,11 @@ class AppsView():
         current_page - this is a numeric value, and by default the value is one. 
         total_pages - the length of pages that holds at least 7 apps per page. 
         '''
-        pass
+        return {
+            "apps_description": [],  # Replace with actual apps descriptions
+            "current_page": 1,  # Replace with actual current page
+            "total_pages": 1,  # Replace with actual total pages
+        }
 
     def coordinator(self, url_params):
         '''
@@ -54,6 +66,12 @@ class AppsView():
         page_number values, and call the filter_by_category() with the 
         query parameters. Then return the response. 
         '''
+        return {
+            "apps_description": [],  # Replace with actual apps descriptions
+            "current_page": 1,  # Replace with actual current page
+            "total_pages": 1,  # Replace with actual total pages
+        }
+
 
     
 def index(request):
