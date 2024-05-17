@@ -149,6 +149,8 @@ class AppsViewTests(TestCase):
         apps_view = AppsView()
         response = apps_view.get_default_apps()
         self.assertEqual(len(response["apps_description"]), 7)
+        self.assertEqual(response["apps_description"][0].app_name, "Test App 1")
+        self.assertEqual(response["apps_description"][6].app_name, "More Apps 8")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 2)
 
