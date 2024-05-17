@@ -114,7 +114,7 @@ more_apps = [
     }
 ]
 
-# Need to create a function that will apply the data to the 
+# A function that will apply the data to the 
 # testing database. 
 def create_apps(apps):
     for app in apps:
@@ -132,6 +132,7 @@ def create_apps(apps):
 
 # AppsView tests
 class AppsViewTests(TestCase):
+    # get_default_apps() tests start
     def test_get_default_apps_success(self):
         '''
         Testing the get_default_apps() method to make 
@@ -225,11 +226,22 @@ class AppsViewTests(TestCase):
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
 
+    # get_default_apps() tests ends
+
+    # search_by_character() tests start
     def test_search_by_character_success(self):
         pass
 
+    # search_by_character() tests end
+
+    # filter_by_category() tests start
     def test_filter_by_category_success(self):
         pass
+    
+    # filter_by_category() tests end
 
+    # coordinator() tests start
     def test_coordinator_first_page_success(self):
         pass
+
+    # coordinator() tests end
