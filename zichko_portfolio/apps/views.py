@@ -1,3 +1,6 @@
+import datetime
+
+from django.utils import timezone
 from django.shortcuts import render
 
 from portfolio.models import AppsDescriptions
@@ -13,10 +16,49 @@ class AppsView():
         current_page - this is a numeric value, and by default the value is one. 
         total_pages - the length of pages that holds at least 7 apps per page. 
         '''
+        # Get the range of apps to display
+        if page_number > 1:
+            range_start = (page_number - 1) * 7
+            range_end = page_number * 7
+        else:
+            range_start = 0
+            range_end = 7
+
+        # Get the apps or return default message if no apps are found
+        try:
+            # Get the total number of apps
+            total_apps = AppsDescriptions.objects.filter(active=True).count()
+            apps = AppsDescriptions.objects.filter(active=True).order_by("pub_date")[range_start:range_end]
+            if apps.count() == 0:
+                raise AppsDescriptions.DoesNotExist
+        except AppsDescriptions.DoesNotExist:
+            app_description = [{
+                "app_image": "images/default_image.png",
+                "app_name": "No apps found",
+                "app_description": "No apps found at this time. Please check back later.",
+                "app_category": "No category found",
+                "app_url": "https://zichkoding.com",
+                "app_gh_url": "https://github.com/ZichKoding",
+                "pub_date": timezone.now(),
+                "active": True
+            }]
+            return {
+                "apps_description": app_description,
+                "current_page": 1,
+                "total_pages": 1,
+            }
+        
+        # Create an array of objects with app information
+        array_of_apps = list(apps.values())
+
+        # Get the current page and total pages
+        current_page = page_number
+        total_pages = total_apps // 7 + (total_apps % 7 > 0)
+
         return {
-            "apps_description": [],  # Replace with actual apps descriptions
-            "current_page": 1,  # Replace with actual current page
-            "total_pages": 1,  # Replace with actual total pages
+            "apps_description": array_of_apps,
+            "current_page": current_page,
+            "total_pages": total_pages,
         }
 
     def search_by_character(self, characters, page_number=1):

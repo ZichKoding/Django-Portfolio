@@ -149,8 +149,8 @@ class AppsViewTests(TestCase):
         apps_view = AppsView()
         response = apps_view.get_default_apps()
         self.assertEqual(len(response["apps_description"]), 7)
-        self.assertEqual(response["apps_description"][0].app_name, "Test App 1")
-        self.assertEqual(response["apps_description"][6].app_name, "More Apps 8")
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "More Apps 8")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 2)
 
@@ -169,8 +169,8 @@ class AppsViewTests(TestCase):
         apps_view = AppsView()
         response = apps_view.get_default_apps()
         self.assertEqual(len(response["apps_description"]), 3)
-        self.assertEqual(response["apps_description"][0].app_name, "Test App 1")
-        self.assertEqual(response["apps_description"][-1].app_name, "Test App 4")
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "Test App 4")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
 
@@ -191,12 +191,12 @@ class AppsViewTests(TestCase):
         apps_view = AppsView()
         response = apps_view.get_default_apps(page_number=2)
         self.assertEqual(len(response["apps_description"]), 2)
-        self.assertEqual(response["apps_description"][0].app_name, "More Apps 9")
-        self.assertEqual(response["apps_description"][6].app_name, "More Apps 10")
+        self.assertEqual(response["apps_description"][0]["app_name"], "More Apps 9")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "More Apps 10")
         self.assertEqual(response["current_page"], 2)
         self.assertEqual(response["total_pages"], 2)
 
-    def test_get_default_apps_success_no_apps(self):
+    def test_get_default_apps_no_apps(self):
         '''
         Testing the get_default_apps() method to make
         sure that it will return a list of a default image and message
@@ -221,7 +221,7 @@ class AppsViewTests(TestCase):
         apps_view = AppsView()
         response = apps_view.get_default_apps()
         self.assertEqual(len(response["apps_description"]), 1)
-        self.assertEqual(response["apps_description"][0].app_name, "No apps found at this time. Please check back later.")
+        self.assertEqual(response["apps_description"][0]["app_description"], "No apps found at this time. Please check back later.")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
 
