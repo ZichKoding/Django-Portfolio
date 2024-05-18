@@ -402,6 +402,46 @@ class AppsViewTests(TestCase):
         self.assertEqual(response["apps_description"][0]["app_name"], "More Apps 10")
         self.assertEqual(response["current_page"], 2)
         self.assertEqual(response["total_pages"], 2)
+
+    def test_filter_by_category_failure(self):
+        '''
+        Testing the filter_by_category() method to make
+        sure that it will return the default message when
+        there are no apps in the database that match the category.
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        apps_view = AppsView()
+        response = apps_view.filter_by_category("Test Category 1")
+        self.assertEqual(len(response["apps_description"]), 1)
+        self.assertEqual(response["apps_description"][0]["app_name"], "No apps found")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 1)
+
+    def test_filter_by_category_incorrect_category(self):
+        '''
+        Testing the filter_by_category() method to make
+        sure that it will return the default message when
+        the category being searched is not in the database.
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.filter_by_category("Test Category 3")
+        self.assertEqual(len(response["apps_description"]), 1)
+        self.assertEqual(response["apps_description"][0]["app_name"], "No apps found")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 1)
     
     # filter_by_category() tests end
 
