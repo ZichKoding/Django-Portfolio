@@ -255,7 +255,8 @@ class AppsViewTests(TestCase):
         '''
         Testing the search_by_character() method to make 
         sure that it will return a list of apps that contain 
-        the character in the app name.  
+        the character in the app name when there are less than
+        7 apps in the database.
         Expected return is a dictionary with three keys:
         {
             "apps_description": all of the app information of the current page,
@@ -276,7 +277,7 @@ class AppsViewTests(TestCase):
         '''
         Testing the search_by_character() method to make 
         sure that it will return a list of apps that contain 
-        the character in the app name.  
+        the character in the app name on a different page.
         Expected return is a dictionary with three keys:
         {
             "apps_description": all of the app information of the current page,
@@ -298,8 +299,7 @@ class AppsViewTests(TestCase):
         '''
         Testing the search_by_character() method to make 
         sure that it will return the default message when
-        there are no apps in the database with those characters
-        or upon a database error.  
+        there are no apps in the database with those characters.
         Expected return is a dictionary with three keys:
         {
             "apps_description": all of the app information of the current page,
@@ -343,6 +343,7 @@ class AppsViewTests(TestCase):
         pass
     
     # filter_by_category() tests end
+
 
     # coordinator() tests start
     def test_coordinator_first_page_success(self):
