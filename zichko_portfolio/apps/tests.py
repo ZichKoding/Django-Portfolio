@@ -105,7 +105,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 10",
         "app_description": "More apps",
-        "app_category": "Test Category",
+        "app_category": "Test Category 1",
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=9),
@@ -352,6 +352,14 @@ class AppsViewTests(TestCase):
         }
         '''
         create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.filter_by_category("Test Category 1")
+        self.assertEqual(len(response["apps_description"]), 7)
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "More Apps 9")
+        self.assertEqual(response["current_page"], 1)
+        self.assertEqual(response["total_pages"], 2)
     
     # filter_by_category() tests end
 
