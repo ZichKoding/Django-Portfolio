@@ -340,7 +340,18 @@ class AppsViewTests(TestCase):
 
     # filter_by_category() tests start
     def test_filter_by_category_success(self):
-        pass
+        '''
+        Testing the filter_by_category() method to make
+        sure that it will return a list of apps that match the
+        category being searched.
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
     
     # filter_by_category() tests end
 
