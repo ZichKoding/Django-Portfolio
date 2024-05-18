@@ -381,6 +381,27 @@ class AppsViewTests(TestCase):
         self.assertEqual(response["apps_description"][0]["app_name"], "Test App 4")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
+
+    def test_filter_by_category_success_different_page(self):
+        '''
+        Testing the filter_by_category() method to make
+        sure that it will return a list of apps that match the
+        category being searched on a different page.
+        Expected return is a dictionary with three keys:
+        {
+            "apps_description": all of the app information of the current page,
+            "current_page": this is a numeric value, and by default the value is one,
+            "total_pages": the length of pages that holds at least 7 apps per page
+        }
+        '''
+        create_apps(less_than_seven_apps)
+        create_apps(more_apps)
+        apps_view = AppsView()
+        response = apps_view.filter_by_category("Test Category 1", page_number=2)
+        self.assertEqual(len(response["apps_description"]), 1)
+        self.assertEqual(response["apps_description"][0]["app_name"], "More Apps 10")
+        self.assertEqual(response["current_page"], 2)
+        self.assertEqual(response["total_pages"], 2)
     
     # filter_by_category() tests end
 
