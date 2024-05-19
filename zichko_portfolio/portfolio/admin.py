@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import MissionStatement, AppsDescriptions, Summary
+from .models import MissionStatement, Categories, AppsDescriptions, Summary
 # Register your models here.
 
 class MissionStatementAdmin(admin.ModelAdmin):
@@ -14,17 +14,25 @@ class MissionStatementAdmin(admin.ModelAdmin):
     search_fields = ["mission_statement"]
 
 
+class CategoriesAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {"fields": ["category"]}),
+    ]
+    list_display = ["category"]
+    search_fields = ["category"]
+
+
 class AppsDescriptionsAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields": ["app_image"]}),
-        (None, {"fields": ["app_name"]}),
-        (None, {"fields": ["app_description"]}),
-        (None, {"fields": ["app_category"]}),
+        (None, {"fields": ["app_image", "app_name", "app_description"]}),
+        ("Categories", {"fields": ["app_categories"]}),
         ("Active", {"fields": ["active"]}),
         ("Date information", {"fields": ["pub_date"]}),
     ]
-    list_display = ["app_name", "app_description", "app_category", "pub_date", "was_published_recently", "active"]    
-    list_filter = ["pub_date", "active", "app_category"]
+
+    filter_horizontal = ["app_categories"]
+    list_display = ["app_name", "app_description", "pub_date", "was_published_recently", "active"]
+    list_filter = ["pub_date", "active"]
     search_fields = ["app_name"]
 
 
@@ -40,5 +48,6 @@ class SummaryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MissionStatement, MissionStatementAdmin)
+admin.site.register(Categories, CategoriesAdmin)
 admin.site.register(AppsDescriptions, AppsDescriptionsAdmin)
 admin.site.register(Summary, SummaryAdmin)

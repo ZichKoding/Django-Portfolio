@@ -152,7 +152,7 @@ class AppsDescriptionsViewTests(TestCase):
         """
         get_apps_descriptions() returns the default apps descriptions when no apps descriptions exist.
         """
-        AppsDescriptions.objects.create(app_name="Test app", app_description="Test app description", app_category="Test app category", pub_date=timezone.now(), active=True)
+        AppsDescriptions.objects.create(app_name="Test app", app_description="Test app description", pub_date=timezone.now(), active=True)
         apps_descriptions = get_random_active_apps_descriptions()
         # Check if there is at least 3 apps descriptions
         self.assertTrue(len(apps_descriptions) <= 3)
