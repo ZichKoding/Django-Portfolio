@@ -3,7 +3,7 @@ import datetime
 from django.utils import timezone
 from django.shortcuts import render
 
-from portfolio.models import AppsDescriptions
+from portfolio.models import AppsDescriptions, Categories
 
 
 class AppsView():
@@ -124,10 +124,57 @@ class AppsView():
         current_page - this is a numeric value, and by default the value is one. 
         total_pages - the length of pages that holds at least 7 apps per page. 
         '''
+        # Get the range of apps to display
+        if page_number > 1:
+            range_start = (page_number - 1) * 7
+            range_end = page_number * 7
+        else:
+            range_start = 0
+            range_end = 7
+        
+        # Get the key of the category
+        try:
+            category_key = Categories.objects.get(category=category).id
+
+            if category_key is None:
+                raise Categories.DoesNotExist
+        except Categories.DoesNotExist:
+            return {
+                "apps_description": self.default_response,
+                "current_page": 1,
+                "total_pages": 1,
+            }
+        except Categories.MultipleObjectsReturned:
+            return {
+                "apps_description": self.default_response,
+                "current_page": 1,
+                "total_pages": 1,
+            }
+        
+        # Get the apps or return default message if no apps are found
+        try:
+            # Get the total number of apps
+            total_apps = AppsDescriptions.objects.filter(app_categories=category_key, active=True).count()
+            apps = AppsDescriptions.objects.filter(app_categories=category_key, active=True).order_by("pub_date")[range_start:range_end]
+            if apps.count() == 0:
+                raise AppsDescriptions.DoesNotExist
+        except AppsDescriptions.DoesNotExist:
+            return {
+                "apps_description": self.default_response,
+                "current_page": 1,
+                "total_pages": 1,
+            }
+        
+        # Create an array of objects with app information
+        array_of_apps = list(apps.values())
+
+        # Get the total pages
+        total_pages = total_apps // 7 + (total_apps % 7 > 0)
+
         return {
-            "apps_description": [],  # Replace with actual apps descriptions
-            "current_page": 1,  # Replace with actual current page
-            "total_pages": 1,  # Replace with actual total pages
+            "apps_description": array_of_apps,
+            "current_page": page_number,
+            "total_pages": total_pages,
         }
 
     def coordinator(self, url_params):

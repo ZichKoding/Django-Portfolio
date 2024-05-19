@@ -26,7 +26,7 @@ class MissionStatement(models.Model):
 
 # Categories model
 class Categories(models.Model):
-    category = models.CharField(max_length=200)
+    category = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.category

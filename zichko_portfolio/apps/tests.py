@@ -12,7 +12,7 @@ less_than_seven_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "Test App 1",
         "app_description": "Less than seven apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1", "Test Category 2"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now(),
@@ -22,7 +22,7 @@ less_than_seven_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "Test App 2",
         "app_description": "Less than seven apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=1),
@@ -32,7 +32,7 @@ less_than_seven_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "Test App 3",
         "app_description": "Less than seven apps",
-        "app_categories": "Test Category 2",
+        "app_categories": ["Test Category 2"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=2),
@@ -42,7 +42,7 @@ less_than_seven_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "Test App 4",
         "app_description": "Less than seven apps",
-        "app_categories": "Test Category 2",
+        "app_categories": ["Test Category 2"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=3),
@@ -55,7 +55,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 5",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=4),
@@ -65,7 +65,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 6",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=5),
@@ -75,7 +75,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 7",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=6),
@@ -85,7 +85,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 8",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=7),
@@ -95,7 +95,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 9",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=8),
@@ -105,7 +105,7 @@ more_apps = [
         "app_image": "images/less_than_seven_apps.png",
         "app_name": "More Apps 10",
         "app_description": "More apps",
-        "app_categories": "Test Category 1",
+        "app_categories": ["Test Category 1"],
         "app_url": "https://zichkoding.com",
         "app_gh_url": "https://github.com/ZichKoding",
         "pub_date": timezone.now() + datetime.timedelta(days=9),
@@ -115,10 +115,13 @@ more_apps = [
 
 # A function that will apply the data to the 
 # testing database. 
-def create_apps(apps):
+
+def create_categories():
     # Create the categories
     for category in ["Test Category 1", "Test Category 2"]:
         Categories.objects.create(category=category)
+
+def create_apps(apps):
     # Create the apps
     for app in apps:
         new_app = AppsDescriptions.objects.create(
@@ -131,7 +134,8 @@ def create_apps(apps):
             active=app["active"]
         )
         # Add the categories to the app
-        new_app.app_categories.set(Categories.objects.filter(category=app["app_categories"]))
+        for category in app["app_categories"]:
+            new_app.app_categories.add(Categories.objects.get(category=category))
 
 
 # AppsView tests
@@ -149,6 +153,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -170,6 +175,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         apps_view = AppsView()
         response = apps_view.get_default_apps()
@@ -191,6 +197,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -246,6 +253,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -269,6 +277,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         apps_view = AppsView()
         response = apps_view.search_by_character("test app ")
@@ -290,6 +299,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -312,6 +322,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -356,6 +367,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -379,11 +391,13 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         apps_view = AppsView()
         response = apps_view.filter_by_category("Test Category 2")
-        self.assertEqual(len(response["apps_description"]), 1)
-        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 4")
+        self.assertEqual(len(response["apps_description"]), 2)
+        self.assertEqual(response["apps_description"][0]["app_name"], "Test App 1")
+        self.assertEqual(response["apps_description"][-1]["app_name"], "Test App 4")
         self.assertEqual(response["current_page"], 1)
         self.assertEqual(response["total_pages"], 1)
 
@@ -399,6 +413,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
@@ -439,6 +454,7 @@ class AppsViewTests(TestCase):
             "total_pages": the length of pages that holds at least 7 apps per page
         }
         '''
+        create_categories()
         create_apps(less_than_seven_apps)
         create_apps(more_apps)
         apps_view = AppsView()
