@@ -42,4 +42,4 @@ def index(request):
         "summary": summary,
         "app_description": app_description,
     }
-    return render(request, "portfolio/index.html", context)    
+    return render(request, "portfolio/index.html", context)
