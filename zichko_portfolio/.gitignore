@@ -1,4 +1,2 @@
-zichko_portfolio/__pycache__
-
-polls/__pycache__
-polls/migrations/__pycache__
+zenv/
+.env
